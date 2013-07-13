@@ -6,11 +6,11 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import algo.Repeat;
+import algo.ManyTimes;
 
 public class OrderStatisticTest extends SortingTestBase {
     @Test
-    @Repeat(count=1000)
+    @ManyTimes(value=1000)
     public void orderStatistic() {
         Integer[] unordered = randomOrder();
         Integer[] ordered = unordered.clone();

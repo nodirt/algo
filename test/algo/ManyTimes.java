@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface Repeat {
-    int count() default 100;
+public @interface ManyTimes {
+    int value() default 100;
 }

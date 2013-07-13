@@ -2,13 +2,13 @@ package algo.sort;
 
 import org.junit.Test;
 
-import algo.Repeat;
+import algo.ManyTimes;
 
 public abstract class SortingAlgorithmTests extends SortingTestBase {
     public abstract SortingAlgorithm<Integer> createAlgorithm();
     
     @Test
-    @Repeat
+    @ManyTimes
     public void unique() {
         Integer[] nums = randomOrder();
         createAlgorithm().sort(nums);
@@ -16,7 +16,7 @@ public abstract class SortingAlgorithmTests extends SortingTestBase {
     }
     
     @Test
-    @Repeat
+    @ManyTimes
     public void duplicates() {
         Integer[] nums = randomIntegers();
         createAlgorithm().sort(nums);
