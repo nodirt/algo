@@ -10,16 +10,16 @@ import org.junit.runners.model.Statement;
 public class RepeatedTestRunner extends BlockJUnit4ClassRunner {
     
     private class RepeatedInvokeMethod extends InvokeMethod {
-        int __runCount;
+        int _runCount;
         
         public RepeatedInvokeMethod(FrameworkMethod testMethod, Object target, int repeatCount) {
             super(testMethod, target);
-            __runCount = repeatCount;
+            _runCount = repeatCount;
         }
         
         @Override
         public void evaluate() throws Throwable {
-            for (int i = 0; i < __runCount; i++) {
+            for (int i = 0; i < _runCount; i++) {
                 super.evaluate();
             }
         }
