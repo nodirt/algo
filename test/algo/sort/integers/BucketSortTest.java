@@ -7,6 +7,6 @@ import algo.util.Identity;
 public class BucketSortTest extends SortingAlgorithmTests{
     @Override
     public SortingAlgorithm<Integer> createAlgorithm() {
-        return new BucketSort<Integer>(Identity.integer, maximum);
+        return new BucketSort<Integer>(Identity.INTEGER, mMaximum);
     }
 }

@@ -3,16 +3,16 @@ package algo.sort.integers;
 import algo.util.Function;
 
 public class CountingSort<E> extends IntegerSortingAlgorithm<E> {
-    int _max;
+    int mMax;
     
     public int getMax() {
-        return _max;
+        return mMax;
     }
     public void setMax(int max) {
         if (max <= 0) {
             throw new IllegalArgumentException("Max must be positive");
         }
-        _max = max;
+        mMax = max;
     }
     
     public CountingSort(int max, Function<E, Integer> keyFn) {
@@ -22,7 +22,7 @@ public class CountingSort<E> extends IntegerSortingAlgorithm<E> {
     
     @Override
     public void sort(E[] array) {
-        int[] counts = new int[_max];
+        int[] counts = new int[mMax];
         @SuppressWarnings("unchecked")
         E[] orig = (E[]) new Object[array.length];
         

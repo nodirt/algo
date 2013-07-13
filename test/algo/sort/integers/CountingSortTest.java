@@ -8,7 +8,7 @@ public class CountingSortTest extends SortingAlgorithmTests {
 
     @Override
     public SortingAlgorithm<Integer> createAlgorithm() {
-        return new CountingSort<Integer>(maximum, Identity.integer);
+        return new CountingSort<Integer>(mMaximum, Identity.INTEGER);
     }
     
 }

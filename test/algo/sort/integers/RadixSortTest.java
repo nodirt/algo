@@ -8,7 +8,7 @@ import algo.util.Identity;
 
 public class RadixSortTest extends SortingAlgorithmTests {
     public RadixSortTest() {
-        maximum = 5000;
+        mMaximum = 5000;
     }
     
     @Override
@@ -20,6 +20,6 @@ public class RadixSortTest extends SortingAlgorithmTests {
     
     @Override
     public SortingAlgorithm<Integer> createAlgorithm() {
-        return new RadixSort<Integer>(Identity.integer);
+        return new RadixSort<Integer>(Identity.INTEGER);
     }
 }

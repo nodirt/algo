@@ -1,8 +1,6 @@
 package algo.sort.comparison;
 
 public class HeapSort<E> extends ComparisonSorting<E> {
-    int xx;
-    
     @Override
     public void sort(final E[] array) {
         

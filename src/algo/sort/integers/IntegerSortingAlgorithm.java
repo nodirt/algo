@@ -4,20 +4,20 @@ import algo.sort.SortingAlgorithm;
 import algo.util.Function;
 
 public abstract class IntegerSortingAlgorithm<E> extends SortingAlgorithm<E> {
-    Function<E, Integer> _keyFn;
+    Function<E, Integer> mKeyFn;
     
     public Function<E, Integer> getKeyFunction() {
-        return _keyFn;
+        return mKeyFn;
     }
     public void setKeyFunction(Function<E, Integer> func) {
         if (func == null) {
             throw new IllegalArgumentException("func must not be null");
         }
-        _keyFn = func;
+        mKeyFn = func;
     }
     
     protected int getKey(E element) {
-        return _keyFn.apply(element);
+        return mKeyFn.apply(element);
     }
     
     public IntegerSortingAlgorithm(Function<E, Integer> keyFn) {
