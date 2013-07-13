@@ -1,6 +1,5 @@
-package algo.sort;
+package algo.sort.integers;
 
-import algo.sort.integers.IntegerSortingAlgorithm;
 import algo.util.Function;
 
 public class CountingSort<E> extends IntegerSortingAlgorithm<E> {

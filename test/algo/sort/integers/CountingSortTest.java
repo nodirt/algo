@@ -1,6 +1,5 @@
 package algo.sort.integers;
 
-import algo.sort.CountingSort;
 import algo.sort.SortingAlgorithm;
 import algo.sort.SortingAlgorithmTests;
 import algo.util.Identity;
