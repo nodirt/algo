@@ -16,6 +16,7 @@ public class BucketSort<E> extends IntegerSortingAlgorithm<E> {
 		this.min = min;
 		this.max = max;
 	}
+	
     public BucketSort(Function<E, Integer> keyFn, int max) {
         this(keyFn, 0, max);
     }

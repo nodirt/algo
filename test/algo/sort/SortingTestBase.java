@@ -7,8 +7,8 @@ import java.util.Random;
 import algo.BaseTestClass;
 
 public abstract class SortingTestBase extends BaseTestClass {
-    protected int maximum = 100;
-    protected int count = 100;
+    protected int mMaximum = 100;
+    protected int mCount = 100;
     
     <T extends Comparable<T>> boolean isSorted(T[] array) {
         for (int i = 1; i < array.length; i++) {
@@ -24,8 +24,8 @@ public abstract class SortingTestBase extends BaseTestClass {
     }
     
     public Integer[] randomOrder() {
-        Integer[] nums = new Integer[count];
-        for (int i = 0; i < count; i++) {
+        Integer[] nums = new Integer[mCount];
+        for (int i = 0; i < mCount; i++) {
             nums[i] = i; 
         }
         RandomSorting<Integer> rand = new RandomSorting<Integer>();
@@ -34,10 +34,10 @@ public abstract class SortingTestBase extends BaseTestClass {
     }
     
     public Integer[] randomIntegers() {
-        Integer[] nums = new Integer[count];
+        Integer[] nums = new Integer[mCount];
         Random rand = new Random();
         for (int i = 0; i < nums.length; i++) {
-            nums[i] = rand.nextInt(maximum);
+            nums[i] = rand.nextInt(mMaximum);
         }
         return nums;
     }
