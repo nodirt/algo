@@ -2,9 +2,10 @@ package algo.sort;
 
 import java.util.Comparator;
 
+import algo.Algorithm;
 import algo.util.DefaultComparator;
 
-public class OrderStatistic<E> {
+public class OrderStatistic<E> extends Algorithm {
     
     public Comparator<E> comparator = new DefaultComparator<E>();
     
@@ -17,38 +18,31 @@ public class OrderStatistic<E> {
         int high = array.length - 1;
         
         while (low < high) {
-            int middle = low + (high - low) / 2;
-            E pivot = array[middle];
-            int i = low;
-            int j = high;
+            E pivot = array[high];
             
-            while (i <= j) {
-                while (comparator.compare(array[i], pivot) < 0) {
-                    i++;
-                }
-                while (comparator.compare(array[j], pivot) > 0) {
-                    j--;
-                }
-                
-                if (i <= j) {
-                    E tmp = array[i];
-                    array[i] = array[j];
-                    array[j] = tmp;
-                    i++;
-                    j--;
+            int edge = low;
+            
+            for (int i = low; i < high; i++) {
+                if (comparator.compare(array[i], pivot) <= 0) {
+                    swap(array, i, edge);
+                    edge++;
                 }
             }
-
-            int leftPartitionSize = j - low + 1;
-            if (rank == leftPartitionSize) {
+            
+            swap(array, edge, high);
+            
+            int smallerElementCount = edge - low;
+            if (rank == smallerElementCount) {
                 return pivot;
-            } else if (rank < leftPartitionSize) {
-                high = j;
+            } else if (rank < smallerElementCount) {
+                high = edge - 1;
             } else {
-                low = i;
-                rank -= leftPartitionSize;
+                low = edge + 1;
+                rank -= smallerElementCount + 1;
             }
         }
+        
+        assert rank == 0;
         
         return array[low];
     }
