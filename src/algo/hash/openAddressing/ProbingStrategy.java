@@ -2,34 +2,15 @@ package algo.hash.openAddressing;
 
 import java.util.*;
 
-public abstract class ProbingStrategy {
-    int mSize;
-    
-    public ProbingStrategy(int size) {
-        if (size <= 0) {
-            throw new IllegalArgumentException("Size must be positive");
-        }
-        setSize(size);
+import algo.hash.HashTableStrategy;
+
+public abstract class ProbingStrategy extends HashTableStrategy {
+    protected ProbingStrategy(int size) {
+        super(size);
     }
-    public ProbingStrategy() {
+    protected ProbingStrategy() {
         this(4);
     }
     
     public abstract Iterator<Integer> probe(int key);
-    
-    public int getSize() {
-        return mSize;
-    }
-    public int setSize(int value) {
-        mSize = value;
-        return mSize;
-    }
-    public int increaseSize() {
-        mSize *= 2;
-        return mSize;
-    }
-    
-    protected int modSize(int key) {
-    	return Math.abs(key % mSize);
-    }
 }
