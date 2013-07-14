@@ -56,7 +56,7 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
         }
         mStrategy = strategy;
         mLoadFactor = loadFactor;
-        mEntries = new Entry[strategy.getSize()];
+        mEntries = new Entry[strategy.size()];
     }
     
     public int size() {

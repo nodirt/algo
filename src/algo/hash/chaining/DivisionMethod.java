@@ -4,21 +4,23 @@ import algo.util.*;
 
 public class DivisionMethod extends Reduce {
     
-    public DivisionMethod(int max) {
-        super(max);
+    public DivisionMethod(int size) {
+        super(PrimeNumbers.ceiling(size));
     }
     public DivisionMethod() {
         this(11);
     }
     
+    
     @Override
-    public int setSize(int value) {
-        return super.setSize(PrimeNumbers.ceiling(value));
+    public int increaseSize() {
+        mSize = PrimeNumbers.ceiling(mSize * 2);
+        return mSize;
     }
 
     @Override
     public int reduce(int key) {
-        return Math.abs(key % getSize());
+        return Math.abs(key % size());
     }
     
 }

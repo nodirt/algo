@@ -18,7 +18,9 @@ public class HashTableTests extends BaseTestClass {
         return new AbstractHashTable[] {
             new OpenAddressingHashTable<Integer, Integer>(new LinearProbing()),
             new OpenAddressingHashTable<Integer, Integer>(new DoubleHashing()),
-            new ChainingHashTable<Integer, Integer>(new DivisionMethod())
+            new ChainingHashTable<Integer, Integer>(new DivisionMethod()),
+            new ChainingHashTable<Integer, Integer>(new MultiplcationMethod()),
+            new ChainingHashTable<Integer, Integer>(new UniversalMethod())
         };
     }
 

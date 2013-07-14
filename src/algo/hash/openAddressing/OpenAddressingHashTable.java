@@ -36,7 +36,7 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
 
     @Override
     protected void put(Entry<K, V> entry) {
-        assert mStrategy.getSize() == mEntries.length;
+        assert mStrategy.size() == mEntries.length;
         for (Iterator<Integer> it = probe(entry.hashValue); it.hasNext();) {
             int index = it.next();
             Entry<K, V> current = mEntries[index];
