@@ -7,8 +7,8 @@ import org.junit.experimental.theories.*;
 
 import static org.junit.Assert.*;
 import algo.*;
+import algo.hash.chaining.*;
 import algo.hash.openAddressing.*;
-import algo.util.*;
 
 public class HashTableTests extends BaseTestClass {
     
@@ -17,7 +17,8 @@ public class HashTableTests extends BaseTestClass {
     public static AbstractHashTable<Integer, Integer>[] createTables() {
         return new AbstractHashTable[] {
             new OpenAddressingHashTable<Integer, Integer>(new LinearProbing()),
-            new OpenAddressingHashTable<Integer, Integer>(new DoubleHashing())
+            new OpenAddressingHashTable<Integer, Integer>(new DoubleHashing()),
+            new ChainingHashTable<Integer, Integer>(new DivisionMethod())
         };
     }
 

@@ -8,6 +8,8 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
         public K key;
         public int hashValue;
         public V value;
+        /** not used in open addressing */
+        public Entry<K, V> next;
         
         public Entry(K key, int hashValue, V value) {
             this.key = key;
@@ -19,8 +21,11 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
             this(key, key.hashCode(), value);
         }
         
+        public boolean keyMatches(int hashValue, K key) {
+            return hashValue == this.hashValue && this.key.equals(key);
+        }
         public boolean keyMatches(Entry<K, V> other) {
-            return other != null && other.hashValue == hashValue && key.equals(other.key);
+            return other != null && keyMatches(other.hashValue, other.key);
         }
 
         @Override
@@ -58,10 +63,42 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
         return mCount;
     }
     
-    protected abstract int search(K key);
+    protected abstract void put(Entry<K, V> entry);
+    
+    @Override
+    public V put(K key, V value) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key must not be null");
+        }
+        float newFactor = (float) (mCount + 1) / mEntries.length;
+        if (newFactor > mLoadFactor) {
+            enlarge();
+        }
+
+        put(new Entry<K, V>(key, value));
+        mCount += 1;
+        return value;
+    }
+
+    protected void putDuringEnlarge(Entry<K, V> entry) {
+        put(entry);
+    }
+    void enlarge() {
+        Entry<K, V>[] old = mEntries;
+        mEntries = new Entry[mStrategy.increaseSize()];
+
+        for (Entry<K, V> entry : old) {
+            if (isEntryEmpty(entry)) continue;
+            for (Entry<K, V> e = entry; e != null; e = e.next) {
+                putDuringEnlarge(e);
+            }
+        }
+    }
+    
+    protected abstract Entry<K, V> find(K key);
     public V get(K key, V fallbackValue) {
-        int index = search(key);
-        return index >= 0 ? mEntries[index].value : fallbackValue;
+        Entry<K, V> entry = find(key);
+        return entry != null ? entry.value : fallbackValue;
     }
     
     
@@ -79,32 +116,40 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
     
     @Override
     public boolean containsKey(Object key) {
-        return search((K) key) >= 0;
+        return find((K) key) != null;
     }
 
     protected boolean isEntryEmpty(Entry<K, V> entry) {
         return entry == null;
     }
 
-    class EntryIterator implements Iterator<Entry<K, V>> {
-        int i = -1;
+    protected class EntryIterator implements Iterator<Entry<K, V>> {
+        protected int mIndex = -1;
+        protected Entry<K, V> mCurrent;
     
         public EntryIterator() {
             findNext();
         }
         
-        void findNext() {
+        protected void findNext() {
+            if (mCurrent != null && mCurrent.next != null) {
+                mCurrent = mCurrent.next;
+                return;
+            }
+            
             do {
-                i++;
-            } while (i < mEntries.length && isEntryEmpty(mEntries[i]));
+                mIndex++;
+            } while (mIndex < mEntries.length && isEntryEmpty(mEntries[mIndex]));
+            
+            mCurrent = mIndex != -1 ? mEntries[mIndex] : null;
         }
         
         public boolean hasNext() {
-            return i < mEntries.length;
+            return mCurrent != null;
         }
         
         public Entry<K, V> next() {
-            return mEntries[i];  
+            return mCurrent;  
         }
         
         public void remove() {}

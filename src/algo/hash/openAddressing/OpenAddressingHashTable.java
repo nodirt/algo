@@ -34,7 +34,8 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         return probing.probe(hashValue);
     }
 
-    void put(Entry<K, V> entry) {
+    @Override
+    protected void put(Entry<K, V> entry) {
         assert mStrategy.getSize() == mEntries.length;
         for (Iterator<Integer> it = probe(entry.hashValue); it.hasNext();) {
             int index = it.next();
@@ -49,34 +50,7 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         }
     }
 
-    @Override
-    public V put(K key, V value) {
-        if (key == null) {
-            throw new IllegalArgumentException("Key must not be null");
-        }
-        float newFactor = (float) (mCount + 1) / mEntries.length;
-        if (newFactor > mLoadFactor) {
-            enlarge();
-        }
-
-        put(new Entry<K, V>(key, value));
-        mCount += 1;
-        return value;
-    }
-
-    void enlarge() {
-        Entry<K, V>[] old = mEntries;
-        mEntries = new Entry[mStrategy.increaseSize()];
-
-        for (Entry<K, V> entry : old) {
-            if (entry != null && entry != DELETED) {
-                put(entry);
-            }
-        }
-    }
-
-    @Override
-    protected int search(K key) {
+    int search(K key) {
         if (key == null) {
             throw new IllegalArgumentException("Key must not be null");
         }
@@ -94,6 +68,11 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         }
 
         return -1;
+    }
+    @Override
+    protected Entry<K, V> find(K key) {
+        int index = search(key);
+        return index != -1 ? mEntries[index] : null;
     }
 
     @Override
