@@ -28,4 +28,8 @@ public abstract class ProbingStrategy {
         mSize *= 2;
         return mSize;
     }
+    
+    protected int modSize(int key) {
+    	return Math.abs(key % mSize);
+    }
 }

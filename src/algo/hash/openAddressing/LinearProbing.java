@@ -13,7 +13,7 @@ public class LinearProbing extends ProbingStrategy {
     @Override
     public Iterator<Integer> probe(final int key) {
         return new Iterator<Integer>() {
-            int mIndex = key;
+            int mIndex = modSize(key);
 
             @Override
             public boolean hasNext() {
@@ -22,8 +22,9 @@ public class LinearProbing extends ProbingStrategy {
 
             @Override
             public Integer next() {
-                mIndex = Math.abs((mIndex + 1) % getSize());
-                return mIndex;
+            	int result = mIndex;
+            	mIndex = modSize(mIndex + 1);
+            	return result;
             }
 
             @Override
