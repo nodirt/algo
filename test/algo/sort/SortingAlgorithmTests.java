@@ -1,25 +1,47 @@
 package algo.sort;
 
-import org.junit.Test;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theory;
 
 import algo.ManyTimes;
+import algo.sort.comparison.*;
+import algo.sort.integers.*;
+import algo.util.*;
 
-public abstract class SortingAlgorithmTests extends SortingTestBase {
-    public abstract SortingAlgorithm<Integer> createAlgorithm();
+public class SortingAlgorithmTests extends SortingTestBase {
     
-    @Test
+    @DataPoints
+    public static SortingAlgorithm<Integer>[] algorithms() {
+        @SuppressWarnings("unchecked")
+        SortingAlgorithm<Integer>[] result = new SortingAlgorithm[] {
+            // comparison sorting 
+            new InsertionSort<Integer>(),
+            new QuickSort<Integer>(),
+            new ThreeWayQuickSort<Integer>(),
+            new MergeSort<Integer>(),
+            new HeapSort<Integer>(),
+            
+            // integer sorting
+            new CountingSort<Integer>(mMaximum, Identity.INTEGER),
+            new RadixSort<Integer>(Identity.INTEGER),
+            new BucketSort<Integer>(Identity.INTEGER, mMaximum)
+        };
+        return result;
+    }
+    
+    @Theory
     @ManyTimes
-    public void unique() {
+    public void unique(SortingAlgorithm<Integer> algo) {
         Integer[] nums = randomOrder();
-        createAlgorithm().sort(nums);
+        algo.sort(nums);
         assertSorted(nums);
     }
     
-    @Test
+    @Theory
     @ManyTimes
-    public void duplicates() {
+    public void duplicates(SortingAlgorithm<Integer> algo) {
         Integer[] nums = randomIntegers();
-        createAlgorithm().sort(nums);
+        algo.sort(nums);
         assertSorted(nums);
     }    
 

@@ -7,8 +7,8 @@ import java.util.Random;
 import algo.BaseTestClass;
 
 public abstract class SortingTestBase extends BaseTestClass {
-    protected int mMaximum = 100;
-    protected int mCount = 100;
+    protected static final int mMaximum = 100;
+    protected static final int mCount = 100;
     
     <T extends Comparable<T>> boolean isSorted(T[] array) {
         for (int i = 1; i < array.length; i++) {
