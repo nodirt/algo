@@ -1,9 +1,10 @@
 package algo.hash.openAddressing;
 
-import java.util.Iterator;
+import java.util.*;
 
 import algo.hash.AbstractHashTable;
 
+@SuppressWarnings("unchecked")
 public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
     static final Entry<Object, Object> DELETED = new Entry<Object, Object>(null, 0, null);
     
@@ -11,7 +12,6 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
     ProbingStrategy mProbing;
     int mCount;
     
-    @SuppressWarnings("unchecked")
     public OpenAddressingHashTable(ProbingStrategy probing, float loadFactor) {
         super(loadFactor);
         mProbing = probing;
@@ -25,6 +25,10 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
     }
     public OpenAddressingHashTable() {
         this(4);
+    }
+    
+    boolean isEntryEmpty(Entry<K, V> entry) {
+        return entry == null || entry == DELETED;
     }
 
     public int size() {
@@ -46,7 +50,8 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         }
     }
     
-    public void put(K key, V value) {
+    @Override
+    public V put(K key, V value) {
         if (key == null) {
             throw new IllegalArgumentException("Key must not be null");
         }
@@ -57,9 +62,9 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         
         put(new Entry<K, V>(key, value));
         mCount += 1;
+        return value;
     }
     
-    @SuppressWarnings("unchecked")
     void enlarge() {
         Entry<K, V>[] old = mEntries;
         mProbing.increaseSize();
@@ -96,13 +101,17 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         int index = search(key);
         return index >= 0 ? mEntries[index].value : fallbackValue;
     }
-    public V get(K key) {
-        return get(key, null);
-    }
     
-    @SuppressWarnings("unchecked")
-    public V remove(K key) {
-        int index = search(key);
+    
+    @Override
+    public V get(Object key) {
+        return get((K) key, null);
+    }
+
+    
+    @Override
+    public V remove(Object key) {
+        int index = search((K) key);
         if (index == -1) {
             return null;
         }
@@ -110,5 +119,102 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         mEntries[index] = (Entry<K, V>) DELETED;
         mCount--;
         return value;
+    }
+    
+    @Override
+    public void clear() {
+        Arrays.fill(mEntries, null);
+        mCount = 0;
+    }
+    
+    @Override
+    public boolean containsKey(Object key) {
+        return search((K) key) >= 0;
+    }
+    
+    class EntryIterator implements Iterator<Entry<K, V>> {
+        int i = -1;
+    
+        public EntryIterator() {
+            findNext();
+        }
+        
+        void findNext() {
+            do {
+                i++;
+            } while (i < mEntries.length && isEntryEmpty(mEntries[i]));
+        }
+        
+        public boolean hasNext() {
+            return i < mEntries.length;
+        }
+        
+        public Entry<K, V> next() {
+            return mEntries[i];  
+        }
+        
+        public void remove() {}
+    }
+    
+    private Iterable<Entry<K, V>> nonEmptyEntries() {
+        return new Iterable<Entry<K,V>>() {
+            @Override
+            public Iterator<Entry<K, V>> iterator() {
+                return new EntryIterator();
+            }
+        };
+    }
+    
+    @Override
+    public boolean containsValue(Object value) {
+        for (Entry<K, V> e: nonEmptyEntries()) {
+            if (value == null) {
+                if (e.value == null) return true;
+            } else {
+                if (value.equals(e.value)) return true;
+            }
+        }
+        
+        return false;
+    }
+
+    @Override
+    public Set<Map.Entry<K, V>> entrySet() {
+        Set<Map.Entry<K, V>> keys = new HashSet<Map.Entry<K, V>>();
+
+        for (Entry<K, V> e: nonEmptyEntries()) {
+            keys.add(e);
+        }
+
+        return keys;
+    }
+    @Override
+    public boolean isEmpty() {
+        return mCount == 0;
+    }
+    @Override
+    public Set<K> keySet() {
+        Set<K> keys = new HashSet<K>();
+
+        for (Entry<K, V> e: nonEmptyEntries()) {
+            keys.add(e.key);
+        }
+
+        return keys;
+        
+    }
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m) {
+        for (Map.Entry<? extends K, ? extends V> e: m.entrySet()) {
+            put(e.getKey(), e.getValue());
+        }
+    }
+    @Override
+    public Collection<V> values() {
+        List<V> values = new ArrayList<V>();
+        for (Entry<K, V> e: nonEmptyEntries()) {
+            values.add(e.value);
+        }
+        return values;
     }
 }
