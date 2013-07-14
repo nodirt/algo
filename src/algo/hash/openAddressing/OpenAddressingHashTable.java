@@ -17,8 +17,11 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
         mProbing = probing;
         mEntries = new Entry[mProbing.getSize()];
     }
+    public OpenAddressingHashTable(ProbingStrategy probing) {
+        this(probing, 0.5f);
+    }
     public OpenAddressingHashTable(int capacity) {
-        this(new LinearProbing(capacity), 0.5f);
+        this(new LinearProbing(capacity));
     }
     public OpenAddressingHashTable() {
         this(4);

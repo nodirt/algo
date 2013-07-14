@@ -12,7 +12,7 @@ public abstract class ProbingStrategy {
         setSize(size);
     }
     public ProbingStrategy() {
-        this(11);
+        this(4);
     }
     
     public abstract Iterator<Integer> probe(int key);

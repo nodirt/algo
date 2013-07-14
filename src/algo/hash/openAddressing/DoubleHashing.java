@@ -17,7 +17,10 @@ public class DoubleHashing extends ProbingStrategy {
 	public DoubleHashing() {
 		this(new Function<Integer, Integer>() {
 			public Integer apply(Integer key) {
-				return key - 1;
+			    if (key % 2 == 0) {
+			        key--;
+			    }
+			    return Math.abs(key);
 			}
 		});
 	}

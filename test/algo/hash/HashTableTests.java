@@ -3,14 +3,24 @@ package algo.hash;
 import java.util.*;
 import java.util.Map.Entry;
 
-import org.junit.Test;
+import org.junit.experimental.theories.*;
 
 import static org.junit.Assert.*;
 import algo.*;
+import algo.hash.openAddressing.*;
+import algo.util.*;
 
-public abstract class HashTableTest extends BaseTestClass {
+public class HashTableTests extends BaseTestClass {
     
-    protected abstract AbstractHashTable<Integer, Integer> create();
+    @SuppressWarnings("unchecked")
+    @DataPoints
+    public static AbstractHashTable<Integer, Integer>[] createTables() {
+        return new AbstractHashTable[] {
+            new OpenAddressingHashTable<Integer, Integer>(new LinearProbing()),
+            new OpenAddressingHashTable<Integer, Integer>(new DoubleHashing())
+        };
+    }
+
     
     void assertTablesEqual(Map<Integer, Integer> expected, AbstractHashTable<Integer, Integer> actual) {
         assertEquals(expected.size(), actual.size());
@@ -20,10 +30,9 @@ public abstract class HashTableTest extends BaseTestClass {
         }
     }
     
-    @Test
+    @Theory
     @ManyTimes
-    public void putAndGet() {
-        AbstractHashTable<Integer, Integer> table = create();
+    public void putAndGet(AbstractHashTable<Integer, Integer> table) {
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         Random rand = new Random();
         for (int i = 0; i < 100; i++) {
