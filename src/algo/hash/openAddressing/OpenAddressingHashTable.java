@@ -8,17 +8,17 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
     static final Entry<Object, Object> DELETED = new Entry<Object, Object>(null, 0, null);
     
     Entry<K, V>[] mEntries;
-    ProbingStrategy<K> mProbing;
+    ProbingStrategy mProbing;
     int mCount;
     
     @SuppressWarnings("unchecked")
-    public OpenAddressingHashTable(ProbingStrategy<K> probing, float loadFactor) {
+    public OpenAddressingHashTable(ProbingStrategy probing, float loadFactor) {
         super(loadFactor);
         mProbing = probing;
         mEntries = new Entry[mProbing.getSize()];
     }
     public OpenAddressingHashTable(int capacity) {
-        this(new LinearProbing<K>(capacity), 0.5f);
+        this(new LinearProbing(capacity), 0.5f);
     }
     public OpenAddressingHashTable() {
         this(4);

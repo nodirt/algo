@@ -2,7 +2,7 @@ package algo.hash.openAddressing;
 
 import java.util.*;
 
-public class LinearProbing<K> extends ProbingStrategy<K> {
+public class LinearProbing extends ProbingStrategy {
     
     public LinearProbing(int size) {
         super(size);

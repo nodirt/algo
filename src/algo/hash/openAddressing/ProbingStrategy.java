@@ -2,7 +2,7 @@ package algo.hash.openAddressing;
 
 import java.util.*;
 
-public abstract class ProbingStrategy<K> {
+public abstract class ProbingStrategy {
     int mSize;
     
     public ProbingStrategy(int size) {
