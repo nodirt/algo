@@ -9,7 +9,7 @@ public abstract class ProbingStrategy<K> {
         if (size <= 0) {
             throw new IllegalArgumentException("Size must be positive");
         }
-        mSize = size;
+        setSize(size);
     }
     public ProbingStrategy() {
         this(11);
