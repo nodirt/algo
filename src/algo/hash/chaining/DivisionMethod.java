@@ -5,7 +5,7 @@ import algo.util.*;
 public class DivisionMethod extends Reduce {
     
     public DivisionMethod(int size) {
-        super(PrimeNumbers.ceiling(size));
+        super(NumberTheory.ceilingPrime(size));
     }
     public DivisionMethod() {
         this(11);
@@ -14,7 +14,7 @@ public class DivisionMethod extends Reduce {
     
     @Override
     public int increaseSize() {
-        mSize = PrimeNumbers.ceiling(mSize * 2);
+        mSize = NumberTheory.ceilingPrime(mSize * 2);
         return mSize;
     }
 
