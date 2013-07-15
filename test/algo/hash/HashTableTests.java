@@ -1,14 +1,24 @@
 package algo.hash;
 
-import java.util.*;
-import java.util.Map.Entry;
+import static algo.util.Util.assertMapsEqual;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.experimental.theories.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
-import static org.junit.Assert.*;
-import algo.*;
-import algo.hash.chaining.*;
-import algo.hash.openAddressing.*;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theory;
+
+import algo.BaseTestClass;
+import algo.ManyTimes;
+import algo.hash.chaining.ChainingHashTable;
+import algo.hash.chaining.DivisionMethod;
+import algo.hash.chaining.MultiplcationMethod;
+import algo.hash.chaining.UniversalMethod;
+import algo.hash.openAddressing.DoubleHashing;
+import algo.hash.openAddressing.LinearProbing;
+import algo.hash.openAddressing.OpenAddressingHashTable;
 
 public class HashTableTests extends BaseTestClass {
     
@@ -25,14 +35,6 @@ public class HashTableTests extends BaseTestClass {
     }
 
     
-    void assertMapsEqual(Map<Integer, Integer> expected, Map<Integer, Integer> actual) {
-        assertEquals(expected.size(), actual.size());
-        
-        for (Entry<Integer, Integer> entry: expected.entrySet()) {
-            assertEquals(entry.getValue(), actual.get(entry.getKey()));
-        }
-    }
-    
     @Theory
     @ManyTimes
     public void putAndGet(AbstractHashTable<Integer, Integer> table) {
@@ -42,7 +44,7 @@ public class HashTableTests extends BaseTestClass {
             int key = rand.nextInt();
             map.put(key, key);
             table.put(key, key);
-            
+
             assertMapsEqual(map, table);
             
             if (rand.nextBoolean() && i > 0) {

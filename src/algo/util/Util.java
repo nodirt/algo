@@ -1,6 +1,7 @@
 package algo.util;
 
-import java.util.Random;
+import java.util.*;
+import java.util.Map.Entry;
 
 import algo.sort.RandomSorting;
 
@@ -41,6 +42,31 @@ public final class Util {
         }
         return nums;
     }
+    
+    // Collections
+
+    public static boolean equal(Object a, Object b) {
+        if (a == null) {
+            return b == null;
+        } else {
+            return a.equals(b);
+        }
+    }
+    
+    
+    public static <K, V> boolean assertMapsEqual(Map<K, V> expected, Map<K, V> actual) {
+        assert expected.size() == actual.size();
+        
+        for (Entry<K, V> entry: expected.entrySet()) {
+            assert equal(entry.getValue(), actual.get(entry.getKey()));
+        }
+        
+        assert expected.keySet().equals(actual.keySet());
+        assert new HashSet<V>(expected.values()).equals(new HashSet<V>(actual.values())); 
+        
+        return true;
+    }
+
 
     // Random numbers
     
