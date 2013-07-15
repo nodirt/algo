@@ -26,6 +26,14 @@ public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, 
         
         updateHeight(node);
     }
+    
+    @Override
+    Node<K, V> rotate(Node<K, V> node, int direction) {
+        Node<K, V> other = super.rotate(node, direction);
+        updateHeight(node);
+        updateHeight(other);
+        return other;
+    }
 
     @Override
     protected boolean isBalanced(Node<K, V> node) {
@@ -33,6 +41,9 @@ public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, 
     }
     
     Node<K, V> fixBalance(Node<K, V> node) {
+        if (node == null) {
+            return node;
+        }
         updateHeight(node);
         if (isBalanced(node)) {
             return node;
@@ -42,7 +53,7 @@ public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, 
         int direction = getHeight(node.left) - getHeight(node.right);
         
         Node<K, V> other = node.getChild(-direction);
-        if (!other.hasChild(-direction)) {
+        if (other.hasChild(direction) && !other.hasChild(-direction)) {
             other = rotate(other, -direction);
             node.setChild(-direction, other);
         }
@@ -56,7 +67,7 @@ public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, 
     
 
     @Override
-    protected Node<K, V> remove(Node<K, V> root, K key) {
-        return fixBalance(super.remove(root, key));
+    protected Node<K, V> remove(Node<K, V> root, K key, Visitor<Node<K, V>> visitor) {
+        return fixBalance(super.remove(root, key, visitor));
     }
 }
