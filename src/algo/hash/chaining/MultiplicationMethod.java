@@ -1,12 +1,12 @@
 package algo.hash.chaining;
 
-public class MultiplcationMethod extends Reduce {
+public class MultiplicationMethod extends Reduce {
     private final double GOLDEN_RATIO = (1 + Math.sqrt(5.0)) / 2;
     
-    public MultiplcationMethod(int size) {
+    public MultiplicationMethod(int size) {
         super(size);
     }
-    public MultiplcationMethod() {
+    public MultiplicationMethod() {
         this(4);
     }
 

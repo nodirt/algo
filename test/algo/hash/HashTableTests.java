@@ -17,7 +17,7 @@ public class HashTableTests extends MapTests {
             new OpenAddressingHashTable<Integer, Integer>(new LinearProbing()),
             new OpenAddressingHashTable<Integer, Integer>(new DoubleHashing()),
             new ChainingHashTable<Integer, Integer>(new DivisionMethod()),
-            new ChainingHashTable<Integer, Integer>(new MultiplcationMethod()),
+            new ChainingHashTable<Integer, Integer>(new MultiplicationMethod()),
             new ChainingHashTable<Integer, Integer>(new UniversalMethod())
         };
     }
