@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import algo.Algorithm;
 import algo.util.*;
-import static algo.util.ArrayUtil.*;
+import static algo.util.Util.*;
 
 public class OrderStatistic<E> extends Algorithm {
     
