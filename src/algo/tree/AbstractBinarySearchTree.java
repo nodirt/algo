@@ -6,7 +6,7 @@ import algo.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>> extends AbstractBinaryTree<V, N> 
-        implements Map<K, V>{
+        implements Map<K, V> {
     public final Comparator<K> comparator;
     
     static class Node<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>> extends AbstractBinaryTree.Node<V, N> 
@@ -110,9 +110,13 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         parentOfSuccesor.left = successor.right;
         successor.left = root.left;
         successor.right = root.right;
+        onReplacedWithSuccessor(successor);
         return successor;
     }
-
+    
+    
+    protected void onReplacedWithSuccessor(N successor) {}
+    
     public N removeNode(K key) {
         class Remover extends Visitor<N> {
             N removed;
@@ -173,7 +177,7 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
     }
     @Override
     public V put(K key, V value) {
-        return insert(key, value).value;        
+        return insert(key, value).value;
     }
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {

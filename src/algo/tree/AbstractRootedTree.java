@@ -7,6 +7,7 @@ import java.util.List;
 import algo.util.Util;
 
 public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V, N>> {
+    
     public static abstract class Node<V, N> {
         public V value;
         public V getValue() {
@@ -18,7 +19,7 @@ public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V,
         }
         
         public abstract int childCount();
-        public abstract Iterable<N> children();        
+        public abstract Iterable<N> children();
     }
     
     protected N mRoot;
