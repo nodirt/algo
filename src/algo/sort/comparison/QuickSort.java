@@ -3,21 +3,21 @@ package algo.sort.comparison;
 import static algo.util.Util.*;
 
 public class QuickSort<E> extends ComparisonSorting<E> {
-    
+
     @Override
     public void sort(final E[] array) {
-        
+
         class Sorter {
             void sort(int low, int high) {
                 if (low >= high) {
                     return;
                 }
-                
+
                 int middle = low + (high - low) / 2;
                 E pivot = array[middle];
                 int i = low;
                 int j = high;
-                
+
                 while (i <= j) {
                     while (compare(array[i], pivot) < 0) {
                         i++;
@@ -25,7 +25,7 @@ public class QuickSort<E> extends ComparisonSorting<E> {
                     while (compare(array[j], pivot) > 0) {
                         j--;
                     }
-                    
+
                     if (i <= j) {
                         swap(array, i, j);
                         i++;
@@ -41,7 +41,7 @@ public class QuickSort<E> extends ComparisonSorting<E> {
                 }
             }
         }
-        
+
         new Sorter().sort(0, array.length - 1);
     }
 }

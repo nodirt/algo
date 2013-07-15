@@ -3,27 +3,28 @@ package algo.hash;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
-public abstract class AbstractHashTable<K, V> implements Map<K, V>{
+public abstract class AbstractHashTable<K, V> implements Map<K, V> {
     protected static class Entry<K, V> implements Map.Entry<K, V> {
         public K key;
         public int hashValue;
         public V value;
         /** not used in open addressing */
         public Entry<K, V> next;
-        
+
         public Entry(K key, int hashValue, V value) {
             this.key = key;
             this.hashValue = hashValue;
             this.value = value;
         }
-        
+
         public Entry(K key, V value) {
             this(key, key.hashCode(), value);
         }
-        
+
         public boolean keyMatches(int hashValue, K key) {
             return hashValue == this.hashValue && this.key.equals(key);
         }
+
         public boolean keyMatches(Entry<K, V> other) {
             return other != null && keyMatches(other.hashValue, other.key);
         }
@@ -58,13 +59,13 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
         mLoadFactor = loadFactor;
         mEntries = new Entry[strategy.size()];
     }
-    
+
     public int size() {
         return mCount;
     }
-    
+
     protected abstract void put(Entry<K, V> entry);
-    
+
     @Override
     public V put(K key, V value) {
         if (key == null) {
@@ -83,6 +84,7 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
     protected void putDuringEnlarge(Entry<K, V> entry) {
         put(entry);
     }
+
     void enlarge() {
         Entry<K, V>[] old = mEntries;
         mEntries = new Entry[mStrategy.increaseSize()];
@@ -94,26 +96,27 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
             }
         }
     }
-    
+
     protected abstract Entry<K, V> find(K key);
+
     public V get(K key, V fallbackValue) {
         Entry<K, V> entry = find(key);
         return entry != null ? entry.value : fallbackValue;
     }
-    
-    
+
+
     @Override
     public V get(Object key) {
         return get((K) key, null);
     }
 
-    
+
     @Override
     public void clear() {
         Arrays.fill(mEntries, null);
         mCount = 0;
     }
-    
+
     @Override
     public boolean containsKey(Object key) {
         return find((K) key) != null;
@@ -126,56 +129,56 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
     protected class EntryIterator implements Iterator<Entry<K, V>> {
         protected int mIndex = -1;
         protected Entry<K, V> mCurrent;
-    
+
         public EntryIterator() {
             findNext();
         }
-        
+
         protected void findNext() {
             if (mCurrent != null && mCurrent.next != null) {
                 mCurrent = mCurrent.next;
                 return;
             }
-            
+
             do {
                 mIndex++;
             } while (mIndex < mEntries.length && isEntryEmpty(mEntries[mIndex]));
-            
+
             mCurrent = mIndex < mEntries.length ? mEntries[mIndex] : null;
         }
-        
+
         public boolean hasNext() {
             return mCurrent != null;
         }
-        
+
         public Entry<K, V> next() {
             Entry<K, V> result = mCurrent;
             findNext();
             return result;
         }
-        
+
         public void remove() {}
     }
-    
+
     private Iterable<Entry<K, V>> nonEmptyEntries() {
-        return new Iterable<Entry<K,V>>() {
+        return new Iterable<Entry<K, V>>() {
             @Override
             public Iterator<Entry<K, V>> iterator() {
                 return new EntryIterator();
             }
         };
     }
-    
+
     @Override
     public boolean containsValue(Object value) {
-        for (Entry<K, V> e: nonEmptyEntries()) {
+        for (Entry<K, V> e : nonEmptyEntries()) {
             if (value == null) {
                 if (e.value == null) return true;
             } else {
                 if (value.equals(e.value)) return true;
             }
         }
-        
+
         return false;
     }
 
@@ -183,37 +186,41 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
     public Set<Map.Entry<K, V>> entrySet() {
         Set<Map.Entry<K, V>> keys = new HashSet<Map.Entry<K, V>>();
 
-        for (Entry<K, V> e: nonEmptyEntries()) {
+        for (Entry<K, V> e : nonEmptyEntries()) {
             keys.add(e);
         }
 
         return keys;
     }
+
     @Override
     public boolean isEmpty() {
         return mCount == 0;
     }
+
     @Override
     public Set<K> keySet() {
         Set<K> keys = new HashSet<K>();
 
-        for (Entry<K, V> e: nonEmptyEntries()) {
+        for (Entry<K, V> e : nonEmptyEntries()) {
             keys.add(e.key);
         }
 
         return keys;
-        
+
     }
+
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        for (Map.Entry<? extends K, ? extends V> e: m.entrySet()) {
+        for (Map.Entry<? extends K, ? extends V> e : m.entrySet()) {
             put(e.getKey(), e.getValue());
         }
     }
+
     @Override
     public Collection<V> values() {
         List<V> values = new ArrayList<V>();
-        for (Entry<K, V> e: nonEmptyEntries()) {
+        for (Entry<K, V> e : nonEmptyEntries()) {
             values.add(e.value);
         }
         return values;

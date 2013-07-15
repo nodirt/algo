@@ -1,4 +1,3 @@
 package algo;
 
-public class Algorithm {
-}
+public class Algorithm {}

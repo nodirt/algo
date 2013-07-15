@@ -69,6 +69,7 @@ public class OpenAddressingHashTable<K, V> extends AbstractHashTable<K, V> {
 
         return -1;
     }
+
     @Override
     protected Entry<K, V> find(K key) {
         int index = search(key);

@@ -5,17 +5,18 @@ import static algo.util.Util.*;
 public class HeapSort<E> extends ComparisonSorting<E> {
     @Override
     public void sort(final E[] array) {
-        
+
         class Heap {
             int size = array.length;
 
             int getLeft(int index) {
                 return index * 2;
             }
+
             int getRight(int index) {
                 return index * 2 + 1;
             }
-            
+
             void maxHeapify(int index) {
                 while (true) {
                     int left = getLeft(index);

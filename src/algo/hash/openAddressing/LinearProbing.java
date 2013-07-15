@@ -3,13 +3,13 @@ package algo.hash.openAddressing;
 import java.util.*;
 
 public class LinearProbing extends ProbingStrategy {
-    
+
     public LinearProbing(int size) {
         super(size);
     }
-    public LinearProbing() {
-    }
-    
+
+    public LinearProbing() {}
+
     @Override
     public Iterator<Integer> probe(final int key) {
         return new Iterator<Integer>() {
@@ -22,13 +22,13 @@ public class LinearProbing extends ProbingStrategy {
 
             @Override
             public Integer next() {
-            	int result = mIndex;
-            	mIndex = modSize(mIndex + 1);
-            	return result;
+                int result = mIndex;
+                mIndex = modSize(mIndex + 1);
+                return result;
             }
 
             @Override
             public void remove() {}
         };
-    }    
+    }
 }

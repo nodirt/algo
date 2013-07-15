@@ -2,8 +2,9 @@ package algo.tree;
 
 import java.util.ArrayList;
 
-public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>> extends AbstractRootedTree<V, N> {
-    
+public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
+        extends AbstractRootedTree<V, N> {
+
     public static class Node<V, N extends Node<V, N>> extends AbstractRootedTree.Node<V, N> {
         public N left;
         public N right;
@@ -11,6 +12,7 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>> exte
         public N getChild(int direction) {
             return direction < 0 ? left : right;
         }
+
         public void setChild(int direction, N child) {
             if (direction < 0) {
                 left = child;
@@ -18,6 +20,7 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>> exte
                 right = child;
             }
         }
+
         public boolean hasChild(int direction) {
             return getChild(direction) != null;
         }
@@ -31,9 +34,10 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>> exte
             if (right != null) {
                 count++;
             }
-            
+
             return count;
         }
+
         @Override
         public Iterable<N> children() {
             ArrayList<N> children = new ArrayList<N>();

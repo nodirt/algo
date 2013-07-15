@@ -6,20 +6,20 @@ import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 
 public class RepeatedTestRunner extends Theories {
-    
+
     public RepeatedTestRunner(Class<?> klass) throws InitializationError {
         super(klass);
     }
-    
+
     @Override
     public Statement methodBlock(FrameworkMethod method) {
-        final Statement block = super.methodBlock(method); 
+        final Statement block = super.methodBlock(method);
 
         final ManyTimes manyTimes = method.getAnnotation(ManyTimes.class);
         if (manyTimes == null) {
             return block;
         }
-            
+
         return new Statement() {
 
             @Override
@@ -28,7 +28,7 @@ public class RepeatedTestRunner extends Theories {
                     block.evaluate();
                 }
             }
-            
+
         };
     }
 }
