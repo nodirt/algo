@@ -3,7 +3,8 @@ package algo.sort;
 import java.util.Comparator;
 
 import algo.Algorithm;
-import algo.util.DefaultComparator;
+import algo.util.*;
+import static algo.util.ArrayUtil.*;
 
 public class OrderStatistic<E> extends Algorithm {
     

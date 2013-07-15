@@ -1,6 +1,7 @@
 package algo.sort;
 
-import java.util.Random;
+import java.util.*;
+import static algo.util.ArrayUtil.*;
 
 public class RandomSorting<T> extends SortingAlgorithm<T> {
     private final Random sRand = new Random();

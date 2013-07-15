@@ -1,5 +1,7 @@
 package algo.sort.comparison;
 
+import static algo.util.ArrayUtil.*;
+
 public class QuickSort<E> extends ComparisonSorting<E> {
     
     @Override

@@ -22,9 +22,9 @@ public class SortingAlgorithmTests extends SortingTestBase {
             new HeapSort<Integer>(),
             
             // integer sorting
-            new CountingSort<Integer>(mMaximum, Identity.INTEGER),
+            new CountingSort<Integer>(NUM_MAX, Identity.INTEGER),
             new RadixSort<Integer>(Identity.INTEGER),
-            new BucketSort<Integer>(Identity.INTEGER, mMaximum)
+            new BucketSort<Integer>(Identity.INTEGER, NUM_MAX)
         };
         return result;
     }

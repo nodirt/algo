@@ -1,5 +1,6 @@
 package algo.sort.comparison;
 
+import static algo.util.ArrayUtil.*;
 
 public class ThreeWayQuickSort<E> extends ComparisonSorting<E>  {
 

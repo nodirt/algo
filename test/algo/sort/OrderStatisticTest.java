@@ -1,10 +1,8 @@
 package algo.sort;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 
 import algo.ManyTimes;
 
