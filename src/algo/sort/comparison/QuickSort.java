@@ -1,6 +1,6 @@
 package algo.sort.comparison;
 
-import static algo.util.ArrayUtil.*;
+import static algo.util.Util.*;
 
 public class QuickSort<E> extends ComparisonSorting<E> {
     

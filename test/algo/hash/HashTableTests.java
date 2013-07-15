@@ -25,7 +25,7 @@ public class HashTableTests extends BaseTestClass {
     }
 
     
-    void assertTablesEqual(Map<Integer, Integer> expected, AbstractHashTable<Integer, Integer> actual) {
+    void assertMapsEqual(Map<Integer, Integer> expected, Map<Integer, Integer> actual) {
         assertEquals(expected.size(), actual.size());
         
         for (Entry<Integer, Integer> entry: expected.entrySet()) {
@@ -43,13 +43,13 @@ public class HashTableTests extends BaseTestClass {
             map.put(key, key);
             table.put(key, key);
             
-            assertTablesEqual(map, table);
+            assertMapsEqual(map, table);
             
             if (rand.nextBoolean() && i > 0) {
                 Object[] keys = map.keySet().toArray();
                 int keyToRemove = (Integer) keys[rand.nextInt(keys.length)];
                 assertEquals(map.remove(keyToRemove), table.remove(keyToRemove));
-                assertTablesEqual(map, table);
+                assertMapsEqual(map, table);
             }
         }
     }

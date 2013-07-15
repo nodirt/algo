@@ -1,11 +1,11 @@
 package algo.hash.chaining;
 
-import algo.util.*;
+import static algo.util.Util.*;
 
 public class DivisionMethod extends Reduce {
     
     public DivisionMethod(int size) {
-        super(NumberTheory.ceilingPrime(size));
+        super(ceilingPrime(size));
     }
     public DivisionMethod() {
         this(11);
@@ -14,7 +14,7 @@ public class DivisionMethod extends Reduce {
     
     @Override
     public int increaseSize() {
-        mSize = NumberTheory.ceilingPrime(mSize * 2);
+        mSize = ceilingPrime(mSize * 2);
         return mSize;
     }
 

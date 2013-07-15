@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import algo.BaseTestClass;
 import algo.util.*;
-import static algo.util.ArrayUtil.*;
+import static algo.util.Util.*;
 
 public abstract class SortingTestBase extends BaseTestClass {
     protected static final int NUM_MAX = 100;
@@ -15,10 +15,10 @@ public abstract class SortingTestBase extends BaseTestClass {
     }
 
     Integer[] randomOrder() {
-        return box(RandomUtil.randomOrder(NUM_COUNT));
+        return box(Util.randomOrder(NUM_COUNT));
     }
     
     Integer[] randomIntegers() {
-        return box(RandomUtil.randomIntegers(NUM_COUNT, NUM_MAX));
+        return box(Util.randomIntegers(NUM_COUNT, NUM_MAX));
     }
 }
