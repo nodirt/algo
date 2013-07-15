@@ -1,79 +1,72 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Algo : Algorithms and Data structures in Java" />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Algo</title>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Algorithms and Data structures by nodirt</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/nodirt/algo">View on GitHub</a>
-
-          <h1 id="project_title">Algo</h1>
-          <h2 id="project_tagline">Algorithms and Data structures in Java</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/nodirt/algo/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/nodirt/algo/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <header>
+          <h1>Algorithms and data structures</h1>
+          <h2>Simple, asymptotically efficient implementations in Python</h2>
         </header>
+
+        <section id="main_content">
+          <section id="principles">
+            <h2>Implementation principle</h2>
+            <p>To minimize asymptotic complexity, while maximizing code simplicity. Thus, constant factor is sacrificed for sake of code readability.</p>
+          </section>
+
+          <section id="sorting">
+            <h2>Sorting</h2>
+            Comparison sorting:
+            <ul>
+              <li>
+                <a href="http://github.com/nodirt/algo/blob/master/sorting/quicksort.py">Quicksort</a> and 
+                <a href="http://github.com/nodirt/algo/blob/master/sorting/three_way_quicksort.py">3-way quicksort</a> for input with duplicates
+              </li>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/merge_sort.py">Merge sort</a></li>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/heapsort.py">Heapsort</a></li>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/insertion_sort.py">Insertion sort</a></li>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/selection_sort.py">Selection sort</a></li>
+            </ul>
+
+            Linear-time sorting:
+            <ul>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/counting_sort.py">Counting sort</a></li>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/radix_sort.py">Radix sort</a></li>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/bucket_sort.py">Bucket sort</a></li>
+            </ul>
+
+            Other:
+            <ul>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/random_order.py">Sort randomly</a></li>
+              <li><a href="http://github.com/nodirt/algo/blob/master/sorting/order_statistic.py">Find i-th smallest element</a></li>
+            </ul>
+          </section>
+
+          <section id="bibliography">
+            <h2><a name="bibliography" class="anchor" href="#bibliography"><span class="octicon octicon-link"></span></a>Bibliography</h2>
+            <p>The following books are cited in docstrings:</p>
+            <ol>
+              <li>Cormen, Thomas H.; Leiserson, Charles E., Rivest, Ronald L., Stein, Clifford (2009) [1990]. <a href="http://books.google.com/books?id=VK9hPgAACAAJ">Introduction to Algorithms</a> (3rd ed.). MIT Press and McGraw-Hill. ISBN 0-262-03384-4.</li>
+              <li>Sedgewick, Robert (2011) [1983]. <a href="http://books.google.com/books/about/Algorithms.html?id=idUdqdDXqnAC">Algorithms</a> (4th ed.). Addison-Wesley. ISBN 032157351X</li>
+            </ol>
+          <section>
+        </section>
+        
+      </div>
     </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Algo maintained by <a href="https://github.com/nodirt">nodirt</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
