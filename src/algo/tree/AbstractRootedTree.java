@@ -12,8 +12,13 @@ public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V,
     }
     
     protected N mRoot;
+    protected int mSize;
     
     public N getRoot() {
         return mRoot;
+    }
+    
+    public int size() {
+        return mSize;
     }
 }

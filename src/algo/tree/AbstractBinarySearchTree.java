@@ -46,6 +46,7 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
     
     public N insert(N node) {
         mRoot = insert(mRoot, node);
+        mSize++;
         return node;
     }
     
@@ -101,6 +102,11 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         return successor;
     }
     public N remove(K key) {
-        return remove(mRoot, key);
+        N removed = remove(mRoot, key);
+        if (removed != null) {
+            mSize--;
+            assert mSize >= 0;
+        }
+        return removed;
     }
 }
