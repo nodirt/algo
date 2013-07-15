@@ -1,5 +1,7 @@
 package algo.sort.comparison;
 
+import static algo.util.ArrayUtil.*;
+
 public class HeapSort<E> extends ComparisonSorting<E> {
     @Override
     public void sort(final E[] array) {
