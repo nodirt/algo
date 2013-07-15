@@ -141,7 +141,7 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
                 mIndex++;
             } while (mIndex < mEntries.length && isEntryEmpty(mEntries[mIndex]));
             
-            mCurrent = mIndex != -1 ? mEntries[mIndex] : null;
+            mCurrent = mIndex < mEntries.length ? mEntries[mIndex] : null;
         }
         
         public boolean hasNext() {
@@ -149,7 +149,9 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V>{
         }
         
         public Entry<K, V> next() {
-            return mCurrent;  
+            Entry<K, V> result = mCurrent;
+            findNext();
+            return result;
         }
         
         public void remove() {}
