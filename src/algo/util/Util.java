@@ -88,6 +88,9 @@ public final class Util {
         }
         return nums;
     }
+    public static int[] randomIntegers(int max) {
+        return randomIntegers(max, max);
+    }
 
     // Number theory
 
