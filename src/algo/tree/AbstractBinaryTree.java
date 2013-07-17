@@ -52,7 +52,7 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
     }
 
     /* traversal */
-    
+
     public void inOrder(final Visitor<N> visitor) {
         class Traversal {
             void run(N node) {
@@ -62,10 +62,10 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
                 run(node.right);
             }
         }
-        
+
         new Traversal().run(getRoot());
     }
-    
+
     public void preOrder(final Visitor<N> visitor) {
         class Traversal {
             void run(N node) {
@@ -75,10 +75,10 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
                 run(node.right);
             }
         }
-        
+
         new Traversal().run(getRoot());
     }
-    
+
     public void postOrder(final Visitor<N> visitor) {
         class Traversal {
             void run(N node) {
@@ -88,7 +88,7 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
                 visitor.pre(node);
             }
         }
-        
+
         new Traversal().run(getRoot());
     }
 

@@ -4,8 +4,8 @@ import java.util.*;
 
 import algo.util.*;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
-public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
+@SuppressWarnings({"unchecked"})
+public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
         extends AbstractBinaryTree<V, N> implements Map<K, V> {
     public final Comparator<K> comparator;
 
@@ -28,10 +28,9 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
     }
 
     /* insertion */
-    
-    protected N createNode() {
-        return (N) new Node();
-    }
+
+    protected abstract N createNode();
+
     public N createNode(K key, V value) {
         N node = createNode();
         node.key = key;
@@ -147,7 +146,7 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
     }
 
     /* search */
-    
+
     public N find(K key) {
         N node = getRoot();
         while (node != null) {
