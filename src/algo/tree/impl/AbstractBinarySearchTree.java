@@ -1,16 +1,17 @@
-package algo.tree;
+package algo.tree.impl;
 
 import java.util.*;
 
+import algo.tree.*;
 import algo.util.*;
 
 @SuppressWarnings({"unchecked"})
 public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
-        extends AbstractBinaryTree<V, N> implements Map<K, V> {
+        extends AbstractBinaryTree<V, N> implements BinarySearchTree<K, V>, Map<K, V> {
     public final Comparator<K> comparator;
 
-    static class Node<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
-            extends AbstractBinaryTree.Node<V, N> implements Map.Entry<K, V> {
+    public static class Node<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
+            extends AbstractBinaryTree.Node<V, N> implements BinarySearchTree.Node<K, V>, Map.Entry<K, V> {
         public K key;
 
         @Override
@@ -27,6 +28,11 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         this(new DefaultComparator<K>());
     }
 
+    @Override
+    public Comparator<K> getComparator() {
+        return comparator;
+    }
+    
     /* insertion */
 
     protected abstract N createNode();
@@ -63,6 +69,11 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
 
     public N insertNode(K key, V value) {
         return insertNode(createNode(key, value));
+    }
+    
+    @Override
+    public BinarySearchTree.Node<K, V> insert(K key, V value) {
+        return insertNode(key, value);
     }
 
     @Override
@@ -141,7 +152,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         return root;
     }
 
-    public N removeNode(K key) {
+    public BinarySearchTree.Node<K, V> removeNode(K key) {
         class Remover extends Visitor<N> {
             N removed;
 
@@ -161,7 +172,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
     }
 
     public V remove(Object key) {
-        N node = removeNode((K) key);
+        N node = (N) removeNode((K) key);
         return node != null ? node.value : null;
     }
 

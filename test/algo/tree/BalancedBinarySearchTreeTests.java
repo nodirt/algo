@@ -16,9 +16,8 @@ public class BalancedBinarySearchTreeTests extends MapTests {
 
     @Override
     protected boolean shouldTestRemove(Map<Integer, Integer> map) {
-        AbstractBalancedBinarySearchTree<?, ?, ?> tree =
-                (AbstractBalancedBinarySearchTree<?, ?, ?>) map;
-        return tree.supportRemove();
+        BinarySearchTree<?, ?> tree = (BinarySearchTree<?, ?>) map;
+        return tree.supportsRemove();
     }
 
     @Override

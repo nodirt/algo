@@ -1,14 +1,14 @@
-package algo.tree;
+package algo.tree.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+import algo.tree.*;
 import algo.util.Util;
 
-public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V, N>> {
+public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V, N>> 
+        implements RootedTree<V> {
 
-    public static abstract class Node<V, N> {
+    public static abstract class Node<V, N> implements algo.tree.Node<V> {
         public V value;
 
         public V getValue() {
@@ -19,10 +19,6 @@ public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V,
             this.value = value;
             return value;
         }
-
-        public abstract int childCount();
-
-        public abstract Iterable<N> children();
     }
 
     protected N mRoot;
@@ -43,13 +39,14 @@ public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V,
 
     public void dfs(final Visitor<N> visitor) {
         class Dfs {
+            @SuppressWarnings("unchecked")
             boolean run(N node) {
                 if (node == null) return true;
                 visitor.pre(node);
                 if (visitor.isInterrupted()) return false;
 
-                for (N child : node.children()) {
-                    if (!run(child)) return false;
+                for (algo.tree.Node<V> child : node.children()) {
+                    if (!run((N) child)) return false;
                 }
 
                 visitor.post(node);

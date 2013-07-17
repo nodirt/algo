@@ -1,5 +1,7 @@
 package algo.tree;
 
+import algo.tree.impl.*;
+
 public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, AvlTree.Node<K, V>> {
 
     static final class Node<K, V> extends AbstractBinarySearchTree.Node<K, V, Node<K, V>> {
@@ -30,7 +32,7 @@ public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, 
     }
 
     @Override
-    Node<K, V> rotate(Node<K, V> node, int direction) {
+    protected Node<K, V> rotate(Node<K, V> node, int direction) {
         Node<K, V> other = super.rotate(node, direction);
         assert other.left == node || other.right == node;
         updateHeight(node);

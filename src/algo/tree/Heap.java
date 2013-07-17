@@ -5,9 +5,9 @@ import java.util.*;
 import algo.util.DefaultComparator;
 
 @SuppressWarnings("unchecked")
-public class Heap<E> {
+public class Heap<E> implements BinaryTree<E> {
     public final Comparator<E> comparator;
-    E[] mItems;
+    final E[] mItems;
     int mSize;
 
     public Heap(E[] storage, int count, Comparator<E> comparator) {
@@ -167,5 +167,73 @@ public class Heap<E> {
         maxHeapify(0);
 
         return max;
+    }
+
+
+    // BinaryTree interface implementation
+
+    private class Node implements BinaryTree.Node<E> {
+        final int index;
+
+        public Node(int index) {
+            this.index = index;
+        }
+
+
+        @Override
+        public E getValue() {
+            return mItems[index];
+        }
+
+        @Override
+        public E setValue(E value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int childCount() {
+            return Heap.this.getLeft(index) >= mSize ? 0 : Heap.this.getRight(index) >= mSize
+                    ? 1
+                    : 2;
+        }
+
+        @Override
+        public Iterable<algo.tree.Node<E>> children() {
+            List<algo.tree.Node<E>> list = new ArrayList<algo.tree.Node<E>>();
+            int left = Heap.this.getLeft(index);
+            if (left < mSize) {
+                list.add(new Node(left));
+                int right = left + 1;
+                if (right < mSize) {
+                    list.add(new Node(right));
+                }
+            }
+
+            return list;
+        }
+
+        public algo.tree.BinaryTree.Node<E> getChild(int direction) {
+            int childIndex = index * 2;
+            if (direction >= 0) {
+                childIndex++;
+            }
+            return childIndex < mSize ? new Node(childIndex) : null;
+        }
+
+        @Override
+        public algo.tree.BinaryTree.Node<E> getLeft() {
+            return getChild(-1);
+        }
+
+        @Override
+        public algo.tree.BinaryTree.Node<E> getRight() {
+            return getChild(1);
+        }
+
+    }
+
+
+    public BinaryTree.Node<E> getRoot() {
+        return mSize > 0 ? new Node(0) : null;
     }
 }

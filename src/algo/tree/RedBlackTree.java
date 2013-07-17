@@ -1,5 +1,7 @@
 package algo.tree;
 
+import algo.tree.impl.*;
+
 public class RedBlackTree<K, V>
         extends AbstractBalancedBinarySearchTree<K, V, RedBlackTree.Node<K, V>> {
 
@@ -62,7 +64,7 @@ public class RedBlackTree<K, V>
     }
 
     @Override
-    public boolean supportRemove() {
+    public boolean supportsRemove() {
         return false;
     }
 }

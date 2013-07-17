@@ -1,13 +1,25 @@
-package algo.tree;
+package algo.tree.impl;
 
-import java.util.ArrayList;
+import java.util.*;
+
+import algo.tree.*;
 
 public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
-        extends AbstractRootedTree<V, N> {
+        extends AbstractRootedTree<V, N> 
+        implements BinaryTree<V> {
 
-    public static class Node<V, N extends Node<V, N>> extends AbstractRootedTree.Node<V, N> {
+    public static class Node<V, N extends Node<V, N>> extends AbstractRootedTree.Node<V, N> 
+            implements BinaryTree.Node<V> {
         public N left;
         public N right;
+        
+        public BinaryTree.Node<V> getLeft() {
+            return left;
+        }
+        
+        public BinaryTree.Node<V> getRight() {
+            return right;
+        }
 
         public N getChild(int direction) {
             return direction < 0 ? left : right;
@@ -39,8 +51,8 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
         }
 
         @Override
-        public Iterable<N> children() {
-            ArrayList<N> children = new ArrayList<N>();
+        public Iterable<algo.tree.Node<V>> children() {
+            ArrayList<algo.tree.Node<V>> children = new ArrayList<algo.tree.Node<V>>();
             if (left != null) {
                 children.add(left);
             }
@@ -63,7 +75,7 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
             }
         }
 
-        new Traversal().run(getRoot());
+        new Traversal().run(mRoot);
     }
 
     public void preOrder(final Visitor<N> visitor) {
@@ -76,7 +88,7 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
             }
         }
 
-        new Traversal().run(getRoot());
+        new Traversal().run(mRoot);
     }
 
     public void postOrder(final Visitor<N> visitor) {
@@ -89,10 +101,10 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
             }
         }
 
-        new Traversal().run(getRoot());
+        new Traversal().run(mRoot);
     }
 
-    N rotate(N node, int direction) {
+    protected N rotate(N node, int direction) {
         if (node == null) {
             throw new IllegalArgumentException("node must not be null");
         }

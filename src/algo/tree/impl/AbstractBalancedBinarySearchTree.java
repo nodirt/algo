@@ -1,11 +1,13 @@
-package algo.tree;
+package algo.tree.impl;
+
+import algo.tree.*;
 
 public abstract class AbstractBalancedBinarySearchTree<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
         extends AbstractBinarySearchTree<K, V, N> implements BalancedTree {
 
     protected abstract boolean isBalanced(N node);
 
-    boolean isBalanced(N node, boolean recursive) {
+    protected boolean isBalanced(N node, boolean recursive) {
         if (!isBalanced(node)) return false;
 
         if (recursive) {
@@ -29,16 +31,17 @@ public abstract class AbstractBalancedBinarySearchTree<K, V, N extends AbstractB
 
     /* remove */
 
-    public boolean supportRemove() {
+    public boolean supportsRemove() {
         return true;
     }
 
     @Override
     public N removeNode(K key) {
-        if (!supportRemove()) {
+        if (!supportsRemove()) {
             throw new UnsupportedOperationException("Remove is not supported");
         }
-        N node = super.removeNode(key);
+        @SuppressWarnings("unchecked")
+        N node = (N) super.removeNode(key);
         assert isBalanced();
         return node;
     }
