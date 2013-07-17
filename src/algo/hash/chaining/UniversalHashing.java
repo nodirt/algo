@@ -2,11 +2,11 @@ package algo.hash.chaining;
 
 import java.util.Random;
 
-public class UniversalMethod extends Reduce {
+public class UniversalHashing extends Reduce {
     private final long mFactor;
     int mPower = 2;
 
-    public UniversalMethod() {
+    public UniversalHashing() {
         super(4);
         Random rand = new Random();
         mFactor = rand.nextInt();
