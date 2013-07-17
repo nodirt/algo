@@ -21,8 +21,8 @@ public abstract class AbstractBalancedBinarySearchTree<K, V, N extends AbstractB
     }
 
     @Override
-    public N insert(N node) {
-        node = super.insert(node);
+    public N insertNode(N node) {
+        node = super.insertNode(node);
         assert isBalanced();
         return node;
     }

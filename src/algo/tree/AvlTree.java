@@ -67,14 +67,14 @@ public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, 
     }
 
     @Override
-    protected Node<K, V> insert(Node<K, V> root, Node<K, V> newNode) {
-        return this.fixBalance(super.insert(root, newNode));
+    protected Node<K, V> insertNode(Node<K, V> root, Node<K, V> newNode) {
+        return this.fixBalance(super.insertNode(root, newNode));
     }
 
 
     @Override
-    protected Node<K, V> remove(Node<K, V> root, K key, Visitor<Node<K, V>> visitor) {
-        root = super.remove(root, key, visitor);
+    protected Node<K, V> removeNode(Node<K, V> root, K key, Visitor<Node<K, V>> visitor) {
+        root = super.removeNode(root, key, visitor);
         return fixBalance(root);
     }
 

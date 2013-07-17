@@ -27,41 +27,11 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         this(new DefaultComparator<K>());
     }
 
-    public N find(K key) {
-        N node = getRoot();
-        while (node != null) {
-            int direction = comparator.compare(key, node.key);
-            if (direction == 0) break;
-
-            node = node.getChild(direction);
-        }
-
-        return node;
-    }
-
-    protected N insert(N root, N newNode) {
-        assert newNode != null;
-        if (root == null) {
-            return newNode;
-        }
-
-        int direction = comparator.compare(newNode.key, root.key);
-        N child = root.getChild(direction);
-        child = insert(child, newNode);
-        root.setChild(direction, child);
-        return root;
-    }
-
-    public N insert(N node) {
-        mRoot = insert(mRoot, node);
-        mSize++;
-        return node;
-    }
-
+    /* insertion */
+    
     protected N createNode() {
         return (N) new Node();
     }
-
     public N createNode(K key, V value) {
         N node = createNode();
         node.key = key;
@@ -69,11 +39,44 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         return node;
     }
 
-    public N insert(K key, V value) {
-        return insert(createNode(key, value));
+    protected N insertNode(N root, N newNode) {
+        assert newNode != null;
+        if (root == null) {
+            return newNode;
+        }
+
+        int direction = comparator.compare(newNode.key, root.key);
+        N child = root.getChild(direction);
+        child = insertNode(child, newNode);
+        root.setChild(direction, child);
+        return root;
     }
 
-    protected N remove(N root, K key, Visitor<N> visitor) {
+    public N insertNode(N node) {
+        mRoot = insertNode(mRoot, node);
+        mSize++;
+        return node;
+    }
+
+    public N insertNode(K key, V value) {
+        return insertNode(createNode(key, value));
+    }
+
+    @Override
+    public V put(K key, V value) {
+        return insertNode(key, value).value;
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m) {
+        for (Map.Entry<? extends K, ? extends V> e : m.entrySet()) {
+            put(e.getKey(), e.getValue());
+        }
+    }
+
+    /* remove */
+
+    protected N removeNode(N root, K key, Visitor<N> visitor) {
         if (root == null) {
             return null;
         }
@@ -81,7 +84,7 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         int direction = comparator.compare(key, root.key);
         if (direction != 0) {
             N child = root.getChild(direction);
-            child = remove(child, key, visitor);
+            child = removeNode(child, key, visitor);
             root.setChild(direction, child);
             return root;
         }
@@ -117,7 +120,6 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         return successor;
     }
 
-
     protected void onReplacedWithSuccessor(N successor) {}
 
     public N removeNode(K key) {
@@ -130,7 +132,7 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         }
 
         Remover visitor = new Remover();
-        mRoot = remove(mRoot, key, visitor);
+        mRoot = removeNode(mRoot, key, visitor);
 
         if (visitor.removed != null) {
             mSize--;
@@ -142,6 +144,20 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
     public V remove(Object key) {
         N node = removeNode((K) key);
         return node != null ? node.value : null;
+    }
+
+    /* search */
+    
+    public N find(K key) {
+        N node = getRoot();
+        while (node != null) {
+            int direction = comparator.compare(key, node.key);
+            if (direction == 0) break;
+
+            node = node.getChild(direction);
+        }
+
+        return node;
     }
 
     @Override
@@ -181,15 +197,4 @@ public class AbstractBinarySearchTree<K, V, N extends AbstractBinarySearchTree.N
         return keys;
     }
 
-    @Override
-    public V put(K key, V value) {
-        return insert(key, value).value;
-    }
-
-    @Override
-    public void putAll(Map<? extends K, ? extends V> m) {
-        for (Map.Entry<? extends K, ? extends V> e : m.entrySet()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
 }
