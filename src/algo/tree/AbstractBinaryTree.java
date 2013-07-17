@@ -51,6 +51,47 @@ public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
         }
     }
 
+    /* traversal */
+    
+    public void inOrder(final Visitor<N> visitor) {
+        class Traversal {
+            void run(N node) {
+                if (node == null) return;
+                run(node.left);
+                visitor.pre(node);
+                run(node.right);
+            }
+        }
+        
+        new Traversal().run(getRoot());
+    }
+    
+    public void preOrder(final Visitor<N> visitor) {
+        class Traversal {
+            void run(N node) {
+                if (node == null) return;
+                visitor.pre(node);
+                run(node.left);
+                run(node.right);
+            }
+        }
+        
+        new Traversal().run(getRoot());
+    }
+    
+    public void postOrder(final Visitor<N> visitor) {
+        class Traversal {
+            void run(N node) {
+                if (node == null) return;
+                run(node.left);
+                run(node.right);
+                visitor.pre(node);
+            }
+        }
+        
+        new Traversal().run(getRoot());
+    }
+
     N rotate(N node, int direction) {
         if (node == null) {
             throw new IllegalArgumentException("node must not be null");
