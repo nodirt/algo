@@ -1,7 +1,5 @@
 package algo.tree;
 
-import java.util.*;
-
 public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, AvlTree.Node<K, V>> {
 
     static final class Node<K, V> extends AbstractBinarySearchTree.Node<K, V, Node<K, V>> {
