@@ -18,13 +18,13 @@ public class RedBlackTree<K, V>
         return node != null && node.isRed;
     }
 
+    boolean isBlack(Node<K, V> node) {
+        return node == null || !node.isRed;
+    }
+
     @Override
     protected boolean isBalanced(Node<K, V> node) {
-        if (isRed(node)) {
-            return !isRed(node.left) && !isRed(node.right);
-        } else {
-            return true;
-        }
+        return isBlack(node) || (isBlack(node.left) && isBlack(node.right));
     }
 
     @Override
