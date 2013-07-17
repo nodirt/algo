@@ -25,16 +25,8 @@ public class RedBlackTree<K, V>
         }
     }
 
-
     @Override
-    protected Node<K, V> insertNode(Node<K, V> root, Node<K, V> newNode) {
-        if (root == null) {
-            return newNode;
-        }
-
-        int direction = comparator.compare(newNode.key, root.key);
-
-        root = super.insertNode(root, newNode);
+    protected Node<K, V> fixInsertion(Node<K, V> root, int direction) {
         Node<K, V> changed = root.getChild(direction);
         Node<K, V> unchanged = root.getChild(-direction);
 
@@ -70,8 +62,7 @@ public class RedBlackTree<K, V>
     }
 
     @Override
-    protected Node<K, V> removeNode(Node<K, V> root, K key, Visitor<Node<K, V>> visitor) {
-        // TODO Auto-generated method stub
-        return super.removeNode(root, key, visitor);
+    public boolean supportRemove() {
+        return false;
     }
 }

@@ -11,7 +11,14 @@ public class BalancedBinarySearchTreeTests extends MapTests {
     @SuppressWarnings({"unchecked"})
     @DataPoints
     public static Map<Integer, Integer>[] trees() {
-        return new Map[] {new AvlTree<Integer, Integer>()};
+        return new Map[] {new AvlTree<Integer, Integer>(), new RedBlackTree<Integer, Integer>()};
+    }
+
+    @Override
+    protected boolean shouldTestRemove(Map<Integer, Integer> map) {
+        AbstractBalancedBinarySearchTree<?, ?, ?> tree =
+                (AbstractBalancedBinarySearchTree<?, ?, ?>) map;
+        return tree.supportRemove();
     }
 
     @Override

@@ -38,7 +38,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         return node;
     }
 
-    protected N fixInsertion(N node) {
+    protected N fixInsertion(N node, int direction) {
         return node;
     }
 
@@ -52,7 +52,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         N child = root.getChild(direction);
         child = insertNode(child, newNode);
         root.setChild(direction, child);
-        return fixInsertion(root);
+        return fixInsertion(root, direction);
     }
 
     public N insertNode(N node) {

@@ -27,8 +27,17 @@ public abstract class AbstractBalancedBinarySearchTree<K, V, N extends AbstractB
         return node;
     }
 
+    /* remove */
+
+    public boolean supportRemove() {
+        return true;
+    }
+
     @Override
     public N removeNode(K key) {
+        if (!supportRemove()) {
+            throw new UnsupportedOperationException("Remove is not supported");
+        }
         N node = super.removeNode(key);
         assert isBalanced();
         return node;

@@ -67,7 +67,7 @@ public final class AvlTree<K, V> extends AbstractBalancedBinarySearchTree<K, V, 
     }
 
     @Override
-    protected Node<K, V> fixInsertion(Node<K, V> node) {
+    protected Node<K, V> fixInsertion(Node<K, V> node, int direction) {
         return fixBalance(node);
     }
 
