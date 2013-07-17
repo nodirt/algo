@@ -38,6 +38,10 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         return node;
     }
 
+    protected N fixInsertion(N node) {
+        return node;
+    }
+
     protected N insertNode(N root, N newNode) {
         assert newNode != null;
         if (root == null) {
@@ -48,7 +52,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         N child = root.getChild(direction);
         child = insertNode(child, newNode);
         root.setChild(direction, child);
-        return root;
+        return fixInsertion(root);
     }
 
     public N insertNode(N node) {
@@ -75,7 +79,11 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
 
     /* remove */
 
-    protected N removeNode(N root, K key, Visitor<N> visitor) {
+    protected N fixRemove(N node) {
+        return node;
+    }
+
+    private N removeNodeImpl(N root, K key, Visitor<N> visitor) {
         if (root == null) {
             return null;
         }
@@ -104,22 +112,34 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
 
         // replace with the successor
 
-        N parentOfSuccesor;
         N successor = root.right;
+        Stack<N> path = new Stack<N>();
         do {
-            parentOfSuccesor = successor;
+            path.push(successor);
             successor = successor.left;
         } while (successor.left != null);
 
-        assert successor.left == null;
-        parentOfSuccesor.left = successor.right;
+        assert successor.left == null; // no elements smaller than successor
+        assert path.peek().left == successor; // the top of the stack is successor's parent
+
+        path.peek().left = successor.right; // update successor's parent
+        while (path.size() > 1) {
+            N child = fixRemove(path.pop());
+            path.peek().left = child;
+        }
+
         successor.left = root.left;
-        successor.right = root.right;
-        onReplacedWithSuccessor(successor);
+        successor.right = fixRemove(path.pop());
         return successor;
     }
 
-    protected void onReplacedWithSuccessor(N successor) {}
+    protected N removeNode(N root, K key, Visitor<N> visitor) {
+        root = removeNodeImpl(root, key, visitor);
+        if (root != null) {
+            root = fixRemove(root);
+        }
+        return root;
+    }
 
     public N removeNode(K key) {
         class Remover extends Visitor<N> {

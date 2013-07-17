@@ -69,4 +69,9 @@ public class RedBlackTree<K, V>
         return result;
     }
 
+    @Override
+    protected Node<K, V> removeNode(Node<K, V> root, K key, Visitor<Node<K, V>> visitor) {
+        // TODO Auto-generated method stub
+        return super.removeNode(root, key, visitor);
+    }
 }
