@@ -11,7 +11,10 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
     public final Comparator<K> comparator;
 
     public static class Node<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
-            extends AbstractBinaryTree.Node<V, N> implements BinarySearchTree.Node<K, V>, Map.Entry<K, V> {
+            extends AbstractBinaryTree.Node<V, N>
+            implements
+                BinarySearchTree.Node<K, V>,
+                Map.Entry<K, V> {
         public K key;
 
         @Override
@@ -32,7 +35,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
     public Comparator<K> getComparator() {
         return comparator;
     }
-    
+
     /* insertion */
 
     protected abstract N createNode();
@@ -70,7 +73,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
     public N insertNode(K key, V value) {
         return insertNode(createNode(key, value));
     }
-    
+
     @Override
     public BinarySearchTree.Node<K, V> insert(K key, V value) {
         return insertNode(key, value);

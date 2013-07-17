@@ -5,8 +5,9 @@ import java.util.*;
 import algo.tree.*;
 import algo.util.Util;
 
-public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V, N>> 
-        implements RootedTree<V> {
+public abstract class AbstractRootedTree<V, N extends AbstractRootedTree.Node<V, N>>
+        implements
+            RootedTree<V> {
 
     public static abstract class Node<V, N> implements algo.tree.Node<V> {
         public V value;

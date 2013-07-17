@@ -5,18 +5,18 @@ import java.util.*;
 import algo.tree.*;
 
 public class AbstractBinaryTree<V, N extends AbstractBinaryTree.Node<V, N>>
-        extends AbstractRootedTree<V, N> 
-        implements BinaryTree<V> {
+        extends AbstractRootedTree<V, N> implements BinaryTree<V> {
 
-    public static class Node<V, N extends Node<V, N>> extends AbstractRootedTree.Node<V, N> 
-            implements BinaryTree.Node<V> {
+    public static class Node<V, N extends Node<V, N>> extends AbstractRootedTree.Node<V, N>
+            implements
+                BinaryTree.Node<V> {
         public N left;
         public N right;
-        
+
         public BinaryTree.Node<V> getLeft() {
             return left;
         }
-        
+
         public BinaryTree.Node<V> getRight() {
             return right;
         }
