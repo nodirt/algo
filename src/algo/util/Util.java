@@ -3,7 +3,7 @@ package algo.util;
 import java.util.*;
 import java.util.Map.Entry;
 
-import algo.sort.RandomSorting;
+import algo.sort.Shuffle;
 
 public final class Util {
     static final Random RANDOM = new Random();
@@ -76,7 +76,7 @@ public final class Util {
         for (int i = 0; i < count; i++) {
             nums[i] = i;
         }
-        RandomSorting<Integer> rand = new RandomSorting<Integer>();
+        Shuffle<Integer> rand = new Shuffle<Integer>();
         rand.sort(nums);
         return Util.unbox(nums);
     }

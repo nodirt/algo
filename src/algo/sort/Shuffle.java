@@ -3,7 +3,7 @@ package algo.sort;
 import java.util.*;
 import static algo.util.Util.*;
 
-public class RandomSorting<T> extends SortingAlgorithm<T> {
+public class Shuffle<T> extends SortingAlgorithm<T> {
     private final Random sRand = new Random();
 
     @Override
