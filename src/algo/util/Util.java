@@ -7,6 +7,7 @@ import algo.sort.RandomSorting;
 
 public final class Util {
     static final Random RANDOM = new Random();
+    public static final double GOLDEN_RATIO = (1 + Math.sqrt(5.0)) / 2;
 
     private Util() {}
 

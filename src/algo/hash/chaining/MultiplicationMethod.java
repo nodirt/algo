@@ -1,8 +1,8 @@
 package algo.hash.chaining;
 
-public class MultiplicationMethod extends Reduce {
-    private final double GOLDEN_RATIO = (1 + Math.sqrt(5.0)) / 2;
+import static algo.util.Util.GOLDEN_RATIO;
 
+public class MultiplicationMethod extends Reduce {
     public MultiplicationMethod(int size) {
         super(size);
     }
