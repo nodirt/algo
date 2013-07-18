@@ -23,14 +23,21 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         }
     }
 
-    public AbstractBinarySearchTree(Comparator<K> comparator) {
+    protected AbstractBinarySearchTree(Comparator<K> comparator) {
+        if (comparator == null) {
+            comparator = createDefaultComparator();
+        }
         this.comparator = comparator;
     }
 
-    public AbstractBinarySearchTree() {
-        this(new DefaultComparator<K>());
+    protected AbstractBinarySearchTree() {
+        this(null);
     }
 
+    protected Comparator<K> createDefaultComparator() {
+        return new DefaultComparator<K>();
+    }
+    
     @Override
     public Comparator<K> getComparator() {
         return comparator;

@@ -1,11 +1,18 @@
 package algo.tree.impl;
 
+import java.util.Comparator;
+
 public abstract class AbstractRedBlackTree<K, V, N extends AbstractRedBlackTree.Node<K, V, N>>
         extends AbstractBalancedBinarySearchTree<K, V, N> {
 
     public static class Node<K, V, N extends Node<K, V, N>> extends AbstractBinarySearchTree.Node<K, V, N> {
         boolean isRed;
     }
+    
+    protected AbstractRedBlackTree(Comparator<K> comparator) {
+        super(comparator);
+    }
+    protected AbstractRedBlackTree() {}
 
     boolean isRed(N node) {
         return node != null && node.isRed;

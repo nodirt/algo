@@ -1,9 +1,17 @@
 package algo.tree.impl;
 
+import java.util.Comparator;
+
 import algo.tree.*;
 
 public abstract class AbstractBalancedBinarySearchTree<K, V, N extends AbstractBinarySearchTree.Node<K, V, N>>
         extends AbstractBinarySearchTree<K, V, N> implements BalancedTree {
+
+    protected AbstractBalancedBinarySearchTree(Comparator<K> comparator) {
+        super(comparator);
+    }
+
+    protected AbstractBalancedBinarySearchTree() {}
 
     protected abstract boolean isBalanced(N node);
 
