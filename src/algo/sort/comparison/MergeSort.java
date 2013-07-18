@@ -22,7 +22,7 @@ public class MergeSort<E> extends ComparisonSorting<E> {
                 sort(low, middle);
                 sort(middle + 1, high);
 
-                if (compare(array[middle], array[middle + 1]) <= 0) {
+                if (!greater(array[middle], array[middle + 1])) {
                     // already sorted
                     return;
                 }
@@ -31,12 +31,12 @@ public class MergeSort<E> extends ComparisonSorting<E> {
                 int j = middle + 1;
                 int k = 0;
                 while (i <= middle && j <= high) {
-                    if (compare(array[i], array[j]) <= 0) {
-                        buf[k] = array[i];
-                        i++;
-                    } else {
+                    if (greater(array[i], array[j])) {
                         buf[k] = array[j];
                         j++;
+                    } else {
+                        buf[k] = array[i];
+                        i++;
                     }
                     k++;
                 }

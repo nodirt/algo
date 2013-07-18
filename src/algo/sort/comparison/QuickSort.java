@@ -19,10 +19,10 @@ public class QuickSort<E> extends ComparisonSorting<E> {
                 int j = high;
 
                 while (i <= j) {
-                    while (compare(array[i], pivot) < 0) {
+                    while (less(array[i], pivot)) {
                         i++;
                     }
-                    while (compare(array[j], pivot) > 0) {
+                    while (greater(array[j], pivot)) {
                         j--;
                     }
 
