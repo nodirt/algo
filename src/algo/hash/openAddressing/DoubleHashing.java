@@ -31,7 +31,7 @@ public class DoubleHashing extends ProbingStrategy {
         return new BaseIterator<Integer>() {
             int key2 = mFunc2.apply(key);
             int mIndex = modSize(key);
-            
+
             @Override
             protected boolean moveNext() {
                 mNext = mIndex;

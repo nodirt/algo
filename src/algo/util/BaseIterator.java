@@ -6,7 +6,7 @@ public abstract class BaseIterator<E> implements Iterator<E> {
     protected E mNext;
     protected boolean mHasNext = false;
     protected boolean mInitialized = false;
-    
+
     protected abstract boolean moveNext();
 
     void findNext() {
@@ -15,6 +15,7 @@ public abstract class BaseIterator<E> implements Iterator<E> {
             mNext = null;
         }
     }
+
     void init() {
         if (mInitialized) return;
         mInitialized = true;
@@ -36,7 +37,6 @@ public abstract class BaseIterator<E> implements Iterator<E> {
     }
 
     @Override
-    public final void remove() {
-    }
-    
+    public final void remove() {}
+
 }

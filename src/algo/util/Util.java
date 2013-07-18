@@ -123,4 +123,10 @@ public final class Util {
             return y;
         }
     }
+
+    // comparisons
+
+    public static <E> E max(E a, E b, Comparator<E> comparator) {
+        return comparator.compare(a, b) >= 0 ? a : b;
+    }
 }

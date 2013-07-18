@@ -37,7 +37,7 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
     protected Comparator<K> createDefaultComparator() {
         return new DefaultComparator<K>();
     }
-    
+
     @Override
     public Comparator<K> getComparator() {
         return comparator;

@@ -22,7 +22,7 @@ public class HeapSort<E> extends ComparisonSorting<E> {
                     int left = getLeft(index);
                     int right = getRight(index);
                     int largest = index;
-                    if (left < size && greater(array[left], array[largest])){
+                    if (left < size && greater(array[left], array[largest])) {
                         largest = left;
                     }
 

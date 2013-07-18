@@ -22,10 +22,11 @@ public abstract class ComparisonSorting<E> extends SortingAlgorithm<E> {
     protected int compare(E a, E b) {
         return mComparator.compare(a, b);
     }
-    
+
     protected boolean greater(E a, E b) {
         return compare(a, b) > 0;
     }
+
     protected boolean less(E a, E b) {
         return compare(a, b) < 0;
     }
