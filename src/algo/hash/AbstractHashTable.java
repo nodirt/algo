@@ -2,6 +2,8 @@ package algo.hash;
 
 import java.util.*;
 
+import algo.util.*;
+
 @SuppressWarnings("unchecked")
 public abstract class AbstractHashTable<K, V> implements Map<K, V> {
     protected static class Entry<K, V> implements Map.Entry<K, V> {
@@ -126,38 +128,26 @@ public abstract class AbstractHashTable<K, V> implements Map<K, V> {
         return entry == null;
     }
 
-    protected class EntryIterator implements Iterator<Entry<K, V>> {
+    protected class EntryIterator extends BaseIterator<Entry<K, V>> {
         protected int mIndex = -1;
-        protected Entry<K, V> mCurrent;
 
-        public EntryIterator() {
-            findNext();
-        }
-
-        protected void findNext() {
-            if (mCurrent != null && mCurrent.next != null) {
-                mCurrent = mCurrent.next;
-                return;
+        @Override
+        protected boolean moveNext() {
+            if (mNext != null && mNext.next != null) {
+                mNext = mNext.next;
+                return true;
             }
 
             do {
                 mIndex++;
-            } while (mIndex < mEntries.length && isEntryEmpty(mEntries[mIndex]));
+                if (mIndex >= mEntries.length) {
+                    return false;
+                }
+            } while (isEntryEmpty(mEntries[mIndex]));
 
-            mCurrent = mIndex < mEntries.length ? mEntries[mIndex] : null;
+            mNext = mEntries[mIndex];
+            return true;
         }
-
-        public boolean hasNext() {
-            return mCurrent != null;
-        }
-
-        public Entry<K, V> next() {
-            Entry<K, V> result = mCurrent;
-            findNext();
-            return result;
-        }
-
-        public void remove() {}
     }
 
     private Iterable<Entry<K, V>> nonEmptyEntries() {

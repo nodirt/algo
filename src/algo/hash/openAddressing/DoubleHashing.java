@@ -2,7 +2,7 @@ package algo.hash.openAddressing;
 
 import java.util.Iterator;
 
-import algo.util.Function;
+import algo.util.*;
 
 public class DoubleHashing extends ProbingStrategy {
 
@@ -28,24 +28,16 @@ public class DoubleHashing extends ProbingStrategy {
 
     @Override
     public Iterator<Integer> probe(final int key) {
-        return new Iterator<Integer>() {
+        return new BaseIterator<Integer>() {
             int key2 = mFunc2.apply(key);
             int mIndex = modSize(key);
-
+            
             @Override
-            public boolean hasNext() {
+            protected boolean moveNext() {
+                mNext = mIndex;
+                mIndex = modSize(mIndex + key2);
                 return true;
             }
-
-            @Override
-            public Integer next() {
-                int result = mIndex;
-                mIndex = modSize(mIndex + key2);
-                return result;
-            }
-
-            @Override
-            public void remove() {}
         };
     }
 }
