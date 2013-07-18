@@ -16,7 +16,9 @@ public class SortingAlgorithmTests extends SortingTestBase {
         SortingAlgorithm<Integer>[] result =
                 new SortingAlgorithm[] {
                         // comparison sorting
-                        new InsertionSort<Integer>(), new QuickSort<Integer>(),
+                        new InsertionSort<Integer>(), 
+                        new SelectionSort<Integer>(),
+                        new QuickSort<Integer>(),
                         new ThreeWayQuickSort<Integer>(),
                         new MergeSort<Integer>(),
                         new HeapSort<Integer>(),
@@ -24,7 +26,8 @@ public class SortingAlgorithmTests extends SortingTestBase {
                         // integer sorting
                         new CountingSort<Integer>(NUM_MAX, Identity.INTEGER),
                         new RadixSort<Integer>(Identity.INTEGER),
-                        new BucketSort<Integer>(Identity.INTEGER, NUM_MAX)};
+                        new BucketSort<Integer>(Identity.INTEGER, NUM_MAX)
+                    };
         return result;
     }
 
