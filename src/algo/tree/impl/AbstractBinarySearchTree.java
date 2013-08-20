@@ -161,6 +161,11 @@ public abstract class AbstractBinarySearchTree<K, V, N extends AbstractBinarySea
         }
         return root;
     }
+    
+    @Override
+    public boolean supportsRemove() {
+        return false;
+    }
 
     public BinarySearchTree.Node<K, V> removeNode(K key) {
         class Remover extends Visitor<N> {
