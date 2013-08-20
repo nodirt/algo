@@ -12,6 +12,18 @@ public final class Util {
     private Util() {}
 
     // Arrays
+    
+    public static final int[] range(int start, int end) {
+        int[] result = new int[end - start];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = start++;
+        }
+        return result;
+    }
+    
+    public static final int[] range(int end) {
+        return range(0, end);
+    }
 
     public static final <E> void swap(E[] array, int i, int j) {
         E tmp = array[i];
