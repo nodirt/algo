@@ -1,54 +1,62 @@
 package algo;
 
-public class DisjointSet {
+import java.util.*;
+
+public class DisjointSet<T> {
     
-    static class Node {
+    public static class Disjoint<T> {
         int rank;
-        int parent;
+        Disjoint<T> parent;
         
-        public Node(int parent) {
-            this.parent = parent;
+        public Disjoint() {
+            parent = this;
         }
     }
     
-    final Node[] mNodes;
+    final Map<T, Disjoint<T>> mNodes;
     
-    public DisjointSet(int size) {
-        mNodes = new Node[size];
-        for (int i = 0; i < size; i++) {
-            mNodes[i] = new Node(i);
-        }
+    public DisjointSet() {
+        mNodes = new HashMap<T, Disjoint<T>>();
+    }
+    
+    public Disjoint<T> makeSet(T element) {
+        Disjoint<T> disjoint = new Disjoint<T>();
+        mNodes.put(element, disjoint);
+        return disjoint;
     }
     
     public int size() {
-        return mNodes.length;
+        return mNodes.size();
     }
     
-    public int findSet(int member) {
-        Node node = mNodes[member];
-        if (node.parent != member) {
-            node.parent = findSet(node.parent);
+    Disjoint<T> findSet(Disjoint<T> disjoint) {
+        if (disjoint == null) {
+            return null;
         }
-        return node.parent;
+        
+        if (disjoint.parent != disjoint) {
+            disjoint.parent = findSet(disjoint.parent);
+        }
+        return disjoint.parent;
+    }
+    public Disjoint<T> findSet(T member) {
+        return findSet(mNodes.get(member));
     }
     
-    public boolean inSameSet(int a, int b) {
+    public boolean inSameSet(T a, T b) {
         return findSet(a) == findSet(b);
     }
     
-    public void unit(int a, int b) {
-        a = findSet(a);
-        b = findSet(b);
+    public void unit(T a, T b) {
+        Disjoint<T> aDisjoint = findSet(a);
+        Disjoint<T> bDisjoint = findSet(b);
         
-        Node aNode = mNodes[a];
-        Node bNode = mNodes[b];
-        
-        if (aNode.rank > bNode.rank) {
-            bNode.parent = a;
+        if (aDisjoint.rank > bDisjoint.rank) {
+            bDisjoint.parent = aDisjoint;
         } else {
-            aNode.parent = b;
-            if (aNode.rank == bNode.rank) {
-                aNode.rank++;
+            aDisjoint.parent = bDisjoint;
+            if (aDisjoint.rank == bDisjoint.rank) {
+                bDisjoint.rank++;
             }
         }
     }

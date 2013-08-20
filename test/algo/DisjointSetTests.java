@@ -11,7 +11,10 @@ public class DisjointSetTests extends BaseTestClass {
     @ManyTimes
     public void test1() {
         final int n = 5;
-        DisjointSet dsu = new DisjointSet(n);
+        DisjointSet<Integer> dsu = new DisjointSet<Integer>();
+        for (int i = 0; i < n; i++) {
+            dsu.makeSet(i);
+        }
         
         for (int i = 0; i < dsu.size(); i++) {
             for (int j = 0; j < dsu.size(); j++) {
