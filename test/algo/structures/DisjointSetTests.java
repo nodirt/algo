@@ -1,9 +1,10 @@
-package algo;
+package algo.structures;
 
 import java.util.*;
 
 import org.junit.Test;
 
+import algo.*;
 import static org.junit.Assert.*;
 
 public class DisjointSetTests extends BaseTestClass {
